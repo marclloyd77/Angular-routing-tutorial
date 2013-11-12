@@ -1,0 +1,21 @@
+var fanpinion = angular.module('fanpinion', []);
+
+fanpinion.config(['$routeProvider',
+    function($routeProvider) {
+        $routeProvider.
+        when('/', {
+            templateUrl: 'templates/home.html',
+                //controller: 'HomeController'
+            }).
+            when('/team/:TeamSlug', {
+                templateUrl: 'templates/team.html',
+                controller: 'TeamController'
+            }).
+            when('/question/:QuestionId', {
+                templateUrl: 'templates/question.html',
+                controller: 'QuestionController'
+            }).
+            otherwise({
+                redirectTo: '/'
+            });
+}]);  

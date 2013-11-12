@@ -1,0 +1,117 @@
+fanpinion.controller('TeamController', ['$scope', '$http' , '$location', '$routeParams', function TeamController($scope, $http, $location, $routeParams){
+
+     $scope.TeamSlug = $routeParams.TeamSlug;
+
+     $http.get('http://voxpopme.fanpinion.marc.ordev.co.uk/site/teamApi/team-name/' + $scope.TeamSlug).success(function(data) {
+        $scope.team = data;
+        $scope.club = data.team;
+        $scope.responses = data.questionResponses;
+
+        console.log($scope.team);
+    });
+    
+}])
+
+fanpinion.controller('QuestionController', ['$scope', '$http' , '$location', '$routeParams', function QuestionController($scope, $http, $location, $routeParams){
+
+    $scope.QuestionId = $routeParams.QuestionId;
+
+    $http.get('http://voxpopme.fanpinion.marc.ordev.co.uk/site/questionApi/id/' + $scope.QuestionId + '/page/1').success(function(data) {
+        $scope.team = data.team;
+        $scope.question = data.question;
+        $scope.responses = data.questionResponses.responses;
+
+        //console.log($scope.team);
+    });
+
+        
+        
+    $(document).bind('scroll',function(e){
+        var distanceScrolled = $(window).scrollTop();
+        var windowHeight = $(document).height();
+        
+        // console.log(windowHeight);
+        // console.log(distanceScrolled);
+
+        var i = 2;
+        var fired = false;
+
+        if( distanceScrolled >= ( windowHeight - 1050 ) && fired === false )
+        {
+            
+            fired = true;
+            $http.get('http://voxpopme.fanpinion.marc.ordev.co.uk/site/questionApi/id/17/page/' + i).success(function(data) {
+                //$scope.responses = ;
+                $scope.responses = $scope.responses.concat(data.questionResponses.responses)
+
+                i++;
+                console.log(i)
+
+                //console.log( $scope.responses );
+            });            
+            
+
+        }
+
+    });
+
+
+    
+}])
+
+fanpinion.controller('ClubListCtrl', ['$scope', '$http', function ClubListCtrl($scope, $http){
+
+    $scope.teams = [
+        {
+            'id' : '1',
+            'name' : 'Arsenal Football Club',
+            'slug' : 'arsenal'
+        },
+        {
+            'id' : '2',
+            'name' : 'Aston Villa Football Club',
+            'slug' : 'aston-villa'
+        },
+        {
+            'id' : '3',
+            'name' : 'Cardiff City Football Club',
+            'slug' : 'cardiff'
+        },
+        {
+            'id' : '4',
+            'name' : 'Chelsea Football Club',
+            'slug' : 'chelsea'
+        },
+        {
+            'id' : '5',
+            'name' : 'Crystal Palace Football Club',
+            'slug' : 'crystal-palace'
+        },
+        {
+            'id' : '6',
+            'name' : 'Everton Football Club',
+            'slug' : 'everton'
+        },
+        {
+            'id' : '7',
+            'name' : 'Fulham Football Club',
+            'slug' : 'fulham'
+        },
+        {
+            'id' : '8',
+            'name' : 'Hull City Football Club',
+            'slug' : 'hull-city'
+        },
+        {
+            'id' : '9',
+            'name' : 'Liverpool Football Club',
+            'slug' : 'liverpool'
+        },
+        {
+            'id' : '10',
+            'name' : 'Manchester City Football Club',
+            'slug' : 'manchester-city'
+        }
+    ]
+
+}])

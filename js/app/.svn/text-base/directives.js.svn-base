@@ -1,0 +1,55 @@
+fanpinion.directive('flowplayervid', function () {
+
+  return {
+    restrict: 'A',
+    replace: true,
+    templateUrl: '/templates/partials/video.html',
+    link: function ($scope, $element, $attr) {
+
+
+        if (typeof $.fn.flowplayer == 'function') {
+                 $("video").parent(".flowplayer").flowplayer();
+                 var flowConf = new Object();
+                 flowConf.splash = true;
+                 flowplayer.conf = flowConf;
+            }
+
+    }
+  };
+
+});
+
+
+// fanpinion.directive('infintescroll', function ($http) {
+
+//   return {
+//     restrict: 'A',
+//     replace: false,
+//     link: function ($scope, $http, $element, $attr) {
+
+//         $(document).bind('scroll',function(e){
+//             var distanceScrolled = $(window).scrollTop();
+//             var windowHeight = $(document).height();
+            
+//             // console.log(windowHeight);
+//             // console.log(distanceScrolled);
+
+//             if( distanceScrolled >= ( windowHeight - 1050 ) )
+//             {
+                
+//                 $http.get('http://voxpopme.fanpinion.marc.ordev.co.uk/site/questionApi/id/17').success(function(data) {
+//                     console.log( data );
+//                     $scope.responses = data.questionResponses.responses;
+
+//                     console.log( $scope.responses );
+//                 });
+                 
+//             }
+
+//         });
+
+//     }
+//   };
+
+// });
+
